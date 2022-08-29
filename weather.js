@@ -33,7 +33,7 @@ var displayWeather = function () {
           timeMatch = true;
        }
        if (weatherMatch && prevWeatherMatch && timeMatch) {
-          var weatherDate = moment(weatherStartTime).format('dddd MMMM Do YYYY, h:mm:ss a');
+          var weatherDate = moment(weatherStartTime).format('llll');
           $("#weatherTable").append('<tr><td>' + prevWeather + '</td><td>' + weather + '</td><td>' + weatherStartHour + ':00</td><td>' + weatherDate + '</td><td>' + WeatherFinder.calculateForecastTarget(weatherStartTime) + '</td></tr>');
           matches++;
        }
