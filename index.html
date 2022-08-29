@@ -1,0 +1,45 @@
+<html>
+
+<head>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js" integrity="sha512-CryKbMe7sjSCDPl18jtJI5DR5jtkUWxPXWaLCst6QjH8wxDexfRJic2WRmRXmstr2Y8SxDDWuBO6CQC6IE4KTA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+   <script type="text/javascript" src="util.js"></script>
+   <script type="text/javascript" src="weather.js"></script>
+</head>
+
+<body>
+   <table>
+      <tr>
+         <td>Desired Weather: </td>
+         <td><select id="weatherSelect" multiple="true" size="7">
+               <option value="">Any</option>
+            </select></td>
+      </tr>
+      <tr>
+         <td>Transition From: </td>
+         <td><select id="previousWeatherSelect" multiple="true" size="7">
+               <option value="">Any</option>
+            </select><br /></td>
+      </tr>
+      <tr>
+         <td>Eorzea Time: </td>
+         <td><input type="checkbox" name="timeBox" value="0" id="timeBox0" checked="checked" />00:00-07:59 <br /><input
+               type="checkbox" name="timeBox" value="8" id="timeBox8" checked="checked" />08:00-15:59 <br /><input
+               type="checkbox" name="timeBox" value="16" id="timeBox16" checked="checked" />16:00-23:59 <br /></td>
+      </tr>
+   </table>
+   <button onclick="findWeather()">Find Weather</button><br />
+   <table id="weatherTable">
+      <tr id="weatherTableHeaderRow">
+         <th>Previous Weather</th>
+         <th>Current Weather</th>
+         <th>Eorzea Time</th>
+         <th>Local Time</th>
+         <th>Chance</th>
+      </tr>
+   </table>
+   <div id="weatherDiv"></div>
+
+   <body>
+
+</html>
