@@ -34,7 +34,15 @@ var WeatherFinder = {
         var unixSeconds = parseInt(timeMillis / 1000);
         // Get Eorzea hour
         var bell = (unixSeconds / 175) % 24;
-        return Math.floor(bell);
+        var result = Math.floor(bell);
+        if (result === 23) {
+            result = 0;
+        } else if (result === 7) {
+            result = 8;
+        } else if (result === 15) {
+            result = 16;
+        }
+        return result;
     },
 
     getWeatherTimeFloor: function (date) {

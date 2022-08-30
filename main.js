@@ -7,7 +7,7 @@ function animalImageDisplay(url) {
     }
 }
 
-function changeAnimal(e) {
+function changeAnimal() {
     $("#previousWeatherSelect").val(["any"]);
 
     switch ($("#selectAnimal").val()) {
@@ -102,10 +102,6 @@ function changeAnimal(e) {
     findWeather();
 }
 
-var displayWeather = function () {
-    $("#weatherDiv").text(WeatherFinder.getWeather(new Date(), 'Island Sanctuary'));
-}
-
 function findWeather() {
     $("#weatherDiv").hide();
     $("#weatherTableHeaderRow ~ tr").remove()
@@ -149,7 +145,13 @@ function findWeather() {
         tries++;
     }
     if (matches === 0) {
+        console.info('weatherStartTime', weatherStartTime);
+        console.info('weatherStartHour', weatherStartHour);
+        console.info(this)
         $("#weatherDiv").show();
+    } else {
+        console.info('weatherStartTime', weatherStartTime);
+        console.info('weatherStartHour', weatherStartHour);
     }
 }
 
