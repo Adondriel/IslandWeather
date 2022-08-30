@@ -35,13 +35,13 @@ var WeatherFinder = {
         // Get Eorzea hour
         var bell = (unixSeconds / 175) % 24;
         var result = Math.floor(bell);
-        if (result === 23) {
-            result = 0;
-        } else if (result === 7) {
-            result = 8;
-        } else if (result === 15) {
-            result = 16;
-        }
+        // if (result === 23) {
+        //     result = 0;
+        // } else if (result === 7) {
+        //     result = 8;
+        // } else if (result === 15) {
+        //     result = 16;
+        // }
         return result;
     },
 

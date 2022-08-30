@@ -104,17 +104,16 @@ function changeAnimal() {
 
 function findWeather() {
     $("#weatherDiv").hide();
-    $("#weatherTableHeaderRow ~ tr").remove()
     var weatherStartTime = WeatherFinder.getWeatherTimeFloor(new Date()).getTime();
     var weatherStartHour = WeatherFinder.getEorzeaHour(weatherStartTime);
     var zone = 'Island Sanctuary';
     var targetWeather = $("#weatherSelect").val();
     var targetPrevWeather = $("#previousWeatherSelect").val();
     var tries = 0;
-    var matches = 0;
+    var matches = [];
     var weather = WeatherFinder.getWeather(weatherStartTime, zone);
     var prevWeather = WeatherFinder.getWeather(weatherStartTime - 1, zone);
-    while (tries < 1000 && matches < 30) {
+    while (tries < 1000 && matches.length < 30) {
         var weatherMatch = false;
         var prevWeatherMatch = false;
         var timeMatch = false;
@@ -135,8 +134,8 @@ function findWeather() {
         }
         if (weatherMatch && prevWeatherMatch && timeMatch) {
             var weatherDate = moment(weatherStartTime).format('llll');
-            $("#weatherTable").append('<tr><td>' + prevWeather + '</td><td>' + weather + '</td><td>' + weatherStartHour + ':00</td><td>' + weatherDate + '</td><td>' + WeatherFinder.calculateForecastTarget(weatherStartTime) + '</td></tr>');
-            matches++;
+            var chance = WeatherFinder.calculateForecastTarget(weatherStartTime)
+            matches.push({prevWeather, weather, weatherStartHour, weatherDate, chance});
         }
         weatherStartTime += (8 * 175 * 1000); // Increment by 8 Eorzean hours
         weatherStartHour = WeatherFinder.getEorzeaHour(weatherStartTime);
@@ -144,15 +143,25 @@ function findWeather() {
         weather = WeatherFinder.getWeather(weatherStartTime, zone);
         tries++;
     }
-    if (matches === 0) {
-        console.info('weatherStartTime', weatherStartTime);
-        console.info('weatherStartHour', weatherStartHour);
-        console.info(this)
-        $("#weatherDiv").show();
+    if (matches.length > 0) {
+        fillTable(matches);
     } else {
-        console.info('weatherStartTime', weatherStartTime);
-        console.info('weatherStartHour', weatherStartHour);
+        clearTable();
+        $("#weatherDiv").show();
     }
+}
+
+function fillTable(weatherEvents) {
+    console.info(weatherEvents)
+    clearTable();
+    for (var weatherEvent of weatherEvents) {
+        var {prevWeather, weather, weatherStartHour, weatherDate, chance} = weatherEvent;
+        $("#weatherTable").append(`<tr><td>${prevWeather}</td><td>${weather}</td><td>${weatherStartHour}:00</td><td>${weatherDate}</td><td>${chance}</td></tr>`);
+    }
+}
+
+function clearTable() {
+    $("#weatherTableHeaderRow ~ tr").remove();
 }
 
 function populateWeather() {
