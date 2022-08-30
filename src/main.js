@@ -135,7 +135,7 @@ function findWeather() {
         if (weatherMatch && prevWeatherMatch && timeMatch) {
             var weatherDate = moment(weatherStartTime).format('llll');
             var chance = WeatherFinder.calculateForecastTarget(weatherStartTime)
-            matches.push({prevWeather, weather, weatherStartHour, weatherDate, chance});
+            matches.push({ prevWeather, weather, weatherStartHour, weatherDate, chance });
         }
         weatherStartTime += (8 * 175 * 1000); // Increment by 8 Eorzean hours
         weatherStartHour = WeatherFinder.getEorzeaHour(weatherStartTime);
@@ -146,8 +146,16 @@ function findWeather() {
     if (matches.length > 0) {
         fillTable(matches);
     } else {
-        clearTable();
-        $("#weatherDiv").show();
+        if (weatherStartHour === 23 || weatherStartHour === 15 || weatherStartHour === 7) {
+            console.error('Encountered an error, attempting to fix the situation.');
+            setTimeout(()=>{
+                findWeather();
+            },500);
+        } else {
+            console.error('Encountered an error, this one is on you!');
+            clearTable();
+            $("#weatherDiv").show();
+        }
     }
 }
 
@@ -155,7 +163,7 @@ function fillTable(weatherEvents) {
     console.info(weatherEvents)
     clearTable();
     for (var weatherEvent of weatherEvents) {
-        var {prevWeather, weather, weatherStartHour, weatherDate, chance} = weatherEvent;
+        var { prevWeather, weather, weatherStartHour, weatherDate, chance } = weatherEvent;
         $("#tableBody").append(`<tr><td>${prevWeather}</td><td>${weather}</td><td>${weatherStartHour}:00</td><td>${weatherDate}</td><td>${chance}</td></tr>`);
     }
 }
