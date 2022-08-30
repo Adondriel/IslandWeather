@@ -1,3 +1,12 @@
+function animalImageDisplay(url) {
+    if (url) {
+        $("#animalImage").attr("src", url);
+        $("#animalImage").show();
+    } else {
+        $("#animalImage").hide();
+    }
+}
+
 function changeAnimal(e) {
     $("#previousWeatherSelect").val(["any"]);
 
@@ -7,6 +16,7 @@ function changeAnimal(e) {
             $("#timeBox0").prop("checked", true);
             $("#timeBox8").prop("checked", true);
             $("#timeBox16").prop("checked", true);
+            animalImageDisplay();
             break;
         case '0':
             //Black Sheep
@@ -14,7 +24,7 @@ function changeAnimal(e) {
             $("#timeBox0").prop("checked", true);
             $("#timeBox8").prop("checked", true);
             $("#timeBox16").prop("checked", true);
-            var targetImage = "https://i.imgur.com/L9e3UsS.png";
+            animalImageDisplay("https://i.imgur.com/L9e3UsS.png");
             break;
         case '1':
             //Crab
@@ -22,7 +32,7 @@ function changeAnimal(e) {
             $("#timeBox0").prop("checked", true);
             $("#timeBox8").prop("checked", false);
             $("#timeBox16").prop("checked", false);
-            var targetImage = "https://i.imgur.com/5FLBwZa.png";
+            animalImageDisplay("https://i.imgur.com/5FLBwZa.png");
             break;
         case '2':
             //Yellow Cob
@@ -30,7 +40,7 @@ function changeAnimal(e) {
             $("#timeBox0").prop("checked", true);
             $("#timeBox8").prop("checked", true);
             $("#timeBox16").prop("checked", true);
-            var targetImage = "https://i.imgur.com/FOL35sx.png";
+            animalImageDisplay("https://i.imgur.com/FOL35sx.png");
             break;
         case '3':
             //Twinkle
@@ -38,7 +48,7 @@ function changeAnimal(e) {
             $("#timeBox0").prop("checked", false);
             $("#timeBox8").prop("checked", false);
             $("#timeBox16").prop("checked", true);
-            var targetImage = "https://i.imgur.com/Rmw0s6q.png";
+            animalImageDisplay("https://i.imgur.com/Rmw0s6q.png");
             break;
         case '4':
             //Paissa
@@ -46,7 +56,7 @@ function changeAnimal(e) {
             $("#timeBox0").prop("checked", false);
             $("#timeBox8").prop("checked", true);
             $("#timeBox16").prop("checked", false);
-            var targetImage = "https://i.imgur.com/tT3x5Oq.png";
+            animalImageDisplay("https://i.imgur.com/tT3x5Oq.png");
             break;
         case '5':
             //Black Choco
@@ -54,7 +64,7 @@ function changeAnimal(e) {
             $("#timeBox0").prop("checked", true);
             $("#timeBox8").prop("checked", true);
             $("#timeBox16").prop("checked", true);
-            var targetImage = "https://i.imgur.com/Cr5eAH6.png";
+            animalImageDisplay("https://i.imgur.com/Cr5eAH6.png");
             break;
         case '6':
             //Grand Buffalo
@@ -62,7 +72,7 @@ function changeAnimal(e) {
             $("#timeBox0").prop("checked", true);
             $("#timeBox8").prop("checked", true);
             $("#timeBox16").prop("checked", true);
-            var targetImage = "https://i.imgur.com/c0ImA0I.png";
+            animalImageDisplay("https://i.imgur.com/c0ImA0I.png");
             break;
         case '7':
             //Goob
@@ -70,7 +80,7 @@ function changeAnimal(e) {
             $("#timeBox0").prop("checked", false);
             $("#timeBox8").prop("checked", true);
             $("#timeBox16").prop("checked", false);
-            var targetImage = "https://i.imgur.com/rRwffw9.png";
+            animalImageDisplay("https://i.imgur.com/rRwffw9.png");
             break;
         case '8':
             //Alligator
@@ -78,7 +88,7 @@ function changeAnimal(e) {
             $("#timeBox0").prop("checked", true);
             $("#timeBox8").prop("checked", true);
             $("#timeBox16").prop("checked", false);
-            var targetImage = "https://i.imgur.com/2nYd7tD.png";
+            animalImageDisplay("https://i.imgur.com/2nYd7tD.png");
             break;
         case '9':
             //Gold Backz
@@ -86,7 +96,7 @@ function changeAnimal(e) {
             $("#timeBox0").prop("checked", true);
             $("#timeBox8").prop("checked", true);
             $("#timeBox16").prop("checked", true);
-            var targetImage = "https://i.imgur.com/4EXhuhd.png";
+            animalImageDisplay("https://i.imgur.com/4EXhuhd.png");
             break;
     }
     findWeather();
@@ -97,31 +107,31 @@ var displayWeather = function () {
 }
 
 function findWeather() {
-    $("#weatherDiv").text('');
+    $("#weatherDiv").hide();
     $("#weatherTableHeaderRow ~ tr").remove()
     var weatherStartTime = WeatherFinder.getWeatherTimeFloor(new Date()).getTime();
     var weatherStartHour = WeatherFinder.getEorzeaHour(weatherStartTime);
     var zone = 'Island Sanctuary';
     var targetWeather = $("#weatherSelect").val();
     var targetPrevWeather = $("#previousWeatherSelect").val();
-    console.info(targetWeather, targetPrevWeather);
     var tries = 0;
     var matches = 0;
     var weather = WeatherFinder.getWeather(weatherStartTime, zone);
     var prevWeather = WeatherFinder.getWeather(weatherStartTime - 1, zone);
     while (tries < 1000 && matches < 30) {
-        var weatherMatch = targetWeather == null;
-        var prevWeatherMatch = targetPrevWeather == null;
+        var weatherMatch = false;
+        var prevWeatherMatch = false;
         var timeMatch = false;
         for (var i in targetWeather) {
-            if (targetWeather[i] == "" || targetWeather[i] === "any" || targetWeather[i] == weather) {
+            if (targetWeather[i] === "any" || targetWeather[i] === weather) {
                 weatherMatch = true;
                 break;
             }
         }
-        for (var i in targetPrevWeather) {
-            if (targetPrevWeather[i] == "" || targetPrevWeather[i] === "any" || targetPrevWeather[i] == prevWeather) {
+        for (var j in targetPrevWeather) {
+            if (targetPrevWeather[j] === "any" || targetPrevWeather[j] === prevWeather) {
                 prevWeatherMatch = true;
+                break;
             }
         }
         if ($("#timeBox" + weatherStartHour).is(":checked")) {
@@ -132,14 +142,14 @@ function findWeather() {
             $("#weatherTable").append('<tr><td>' + prevWeather + '</td><td>' + weather + '</td><td>' + weatherStartHour + ':00</td><td>' + weatherDate + '</td><td>' + WeatherFinder.calculateForecastTarget(weatherStartTime) + '</td></tr>');
             matches++;
         }
-        weatherStartTime += 8 * 175 * 1000; // Increment by 8 Eorzean hours
+        weatherStartTime += (8 * 175 * 1000); // Increment by 8 Eorzean hours
         weatherStartHour = WeatherFinder.getEorzeaHour(weatherStartTime);
         prevWeather = weather;
         weather = WeatherFinder.getWeather(weatherStartTime, zone);
         tries++;
     }
-    if (matches == 0) {
-        $("#weatherDiv").append("Couldn't find the desired conditions over the next 1000 weather cycles (~16 Earth days).  Make sure you have selected at least one time period.<br/>");
+    if (matches === 0) {
+        $("#weatherDiv").show();
     }
 }
 
