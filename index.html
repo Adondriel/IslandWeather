@@ -13,35 +13,65 @@
 </head>
 
 <body>
-   <div class="container">
+   <div class="container-fluid">
+      <div class="row mt-2">
+         <div class="col">
+            <div class="card text-bg-warning">
+               <div class="card-body">
+                  Certain animals are currently bugged, read up on how to fix this here:
+                  <a href="https://www.reddit.com/r/ffxiv/comments/wyqg8q/psa_bug_island_sanctuary_rare_monsters_not/"
+                     target="_blank">https://www.reddit.com/r/ffxiv/comments/wyqg8q/psa_bug_island_sanctuary_rare_monsters_not/</a>
+               </div>
+            </div>
+         </div>
+      </div>
       <div class="row">
          <div class="col">
             <label for="previousWeatherSelect">Transition From:</label>
             <select class="form-select" id="previousWeatherSelect" multiple="true" size="7">
-               <option value="">Any</option>
+               <option value="any">Any</option>
             </select>
          </div>
          <div class="col">
             <label for="weatherSelect"> Desired Weather: </label>
             <select class="form-select" id="weatherSelect" multiple="true" size="7">
-               <option value="">Any</option>
+               <option value="any">Any</option>
             </select>
          </div>
          <div class="col">
             <label>Eorzea Time:</label>
             <div class="form-check">
-               <input class="form-check-input" type="checkbox" name="timeBox" value="0" id="timeBox0" checked="checked" />
+               <input class="form-check-input" type="checkbox" name="timeBox" value="0" id="timeBox0"
+                  checked="checked" />
                <label class="form-check-label" for="timeBox0">00:00-07:59 (12am - 8am)</label>
             </div>
             <div class="form-check">
-               <input class="form-check-input" type="checkbox" name="timeBox" value="8" id="timeBox8" checked="checked" />
+               <input class="form-check-input" type="checkbox" name="timeBox" value="8" id="timeBox8"
+                  checked="checked" />
                <label class="form-check-label" for="timeBox8">08:00-15:59 (8am - 4pm)</label>
             </div>
             <div class="form-check">
-               <input class="form-check-input" type="checkbox" name="timeBox" value="16" id="timeBox16" checked="checked" />
+               <input class="form-check-input" type="checkbox" name="timeBox" value="16" id="timeBox16"
+                  checked="checked" />
                <label class="form-check-label" for="timeBox16">16:00-23:59 (4pm - 12am)</label>
-            </div>   
-            <button class="btn btn-primary mt-4" onclick="findWeather()">Find Weather</button><br />
+            </div>
+            <button class="btn btn-primary mt-4" onclick="findWeather()">Find Weather</button>
+         </div>
+         <div class="col">
+            <label for="selectAnimal">Select Animal:</label>
+            <select class="form-select" name="selectAnimal" id="selectAnimal" onchange="changeAnimal()">
+               <option value="-1">Select an animal</option>
+               <option value="0">Orney Karakul [S] (20, 23) All day</option>
+               <option value="1">Beachcomb [S] (17.8, 12.6) 12am-3am</option>
+               <option value="2">Yellow Coblyn [S] (27, 19) All day</option>
+               <option value="3">Twinklefleece [S] (22.1, 20.8) 6pm-9pm</option>
+               <option value="4">Paissa [M] (24,28) 12pm-3pm</option>
+               <option value="5">Black Chocobo [M] (13, 11) All day</option>
+               <option value="6">Grand Buffalo [L] (12, 17) All day</option>
+               <option value="7">Goobbue [L] (33, 16) 9am-12pm</option>
+               <option value="8">Alligator [L] (17, 24) 6am-9am</option>
+               <option value="9">Gold Back [L] (31, 28) All day</option>
+            </select>
          </div>
       </div>
       <table class="table table-striped mt-2" id="weatherTable">
