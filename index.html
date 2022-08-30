@@ -3,6 +3,7 @@
 <head>
    <title>Island Weather Tool</title>
    <script type="text/javascript" src="lib/moment.js"></script>
+   <script type="text/javascript" src="lib/moment-timezone.js"></script>
    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
    <script type="text/javascript" src="src/weatherFinder.js"></script>
    <script type="text/javascript" src="src/main.js"></script>
@@ -30,17 +31,17 @@
             </div>
          </div>
       </div>
-      <div class="row">
+      <div class="row mt-2">
          <div class="col">
             <label class="form-label" for="previousWeatherSelect">Transition From:</label>
             <select class="form-select" id="previousWeatherSelect" multiple="true" size="7" onchange="findWeather()">
-               <option value="any">Any</option>
+               <option value="any" selected>Any</option>
             </select>
          </div>
          <div class="col">
             <label class="form-label" for="weatherSelect"> Desired Weather: </label>
             <select class="form-select" id="weatherSelect" multiple="true" size="7" onchange="findWeather()">
-               <option value="any">Any</option>
+               <option value="any" selected>Any</option>
             </select>
          </div>
          <div class="col">
@@ -79,16 +80,15 @@
             </select>
          </div>
       </div>
-      <div class="row">
+      <div class="row mt-2">
          <div class="col">
-            <table class="table table-striped mt-2" id="weatherTable">
-               <tr id="weatherTableHeaderRow">
-                  <th>Previous Weather</th>
-                  <th>Current Weather</th>
-                  <th>Eorzea Time</th>
-                  <th>Local Time</th>
-                  <th>Chance</th>
-               </tr>
+            <table class="table table-striped" id="weatherTable">
+               <thead id="tableHeader">
+
+               </thead>
+               <tbody id="tableBody">
+
+               </tbody>
             </table>
             <div id="weatherDiv" class="card text-bg-danger" style="display: none;">
                <div class="card-header">Error</div>

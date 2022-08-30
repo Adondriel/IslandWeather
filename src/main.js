@@ -156,23 +156,29 @@ function fillTable(weatherEvents) {
     clearTable();
     for (var weatherEvent of weatherEvents) {
         var {prevWeather, weather, weatherStartHour, weatherDate, chance} = weatherEvent;
-        $("#weatherTable").append(`<tr><td>${prevWeather}</td><td>${weather}</td><td>${weatherStartHour}:00</td><td>${weatherDate}</td><td>${chance}</td></tr>`);
+        $("#tableBody").append(`<tr><td>${prevWeather}</td><td>${weather}</td><td>${weatherStartHour}:00</td><td>${weatherDate}</td><td>${chance}</td></tr>`);
     }
 }
 
 function clearTable() {
-    $("#weatherTableHeaderRow ~ tr").remove();
+    $("#tableBody tr").remove();
 }
 
-function populateWeather() {
+function init() {
     var weathers = WeatherFinder.weatherLists['Island Sanctuary'];
-    console.log(weathers);
     var selects = $("#weatherSelect").add("#previousWeatherSelect");
-    selects.empty();
-    selects.append('<option value="any" selected="selected">Any</option>');
     for (var w in weathers) {
         selects.append('<option value="' + weathers[w] + '">' + weathers[w] + '</option>');
     }
+    var localTimeZone = moment().tz(moment.tz.guess()).format('z');
+    $('#tableHeader').append(`                  
+    <tr id="weatherTableHeaderRow">
+    <th>Previous Weather</th>
+    <th>Current Weather</th>
+    <th>Eorzea Time</th>
+    <th>Local Time (${localTimeZone})</th>
+    <th>Chance</th>
+    </tr>`);
 }
 
-$(window).load(function () { populateWeather(); });
+$(window).load(function () { init(); });
